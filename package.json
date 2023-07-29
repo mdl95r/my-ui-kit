@@ -1,0 +1,37 @@
+{
+  "name": "my-ui-kit",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test:unit": "jest"
+  },
+  "dependencies": {
+    "primeicons": "^6.0.1",
+    "random-id": "^1.0.4",
+    "scss-reset": "^1.4.2",
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.8",
+    "@babel/preset-env": "^7.22.7",
+    "@storybook/addon-controls": "^7.0.0",
+    "@storybook/addon-essentials": "^7.0.23",
+    "@storybook/addon-interactions": "^7.0.23",
+    "@storybook/addon-links": "^7.0.23",
+    "@storybook/blocks": "^7.0.23",
+    "@storybook/testing-library": "^0.0.14-next.2",
+    "@storybook/vue3": "^7.0.23",
+    "@storybook/vue3-vite": "^7.0.23",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vue/test-utils": "^2.0.0",
+    "@vue/vue3-jest": "^27.0.0-alpha.1",
+    "babel-jest": "^27.0.6",
+    "jest": "^27.0.5",
+    "sass": "^1.63.6",
+    "storybook": "^7.0.23",
+    "vite": "^4.3.9"
+  }
+}

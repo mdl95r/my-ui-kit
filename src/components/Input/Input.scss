@@ -1,0 +1,266 @@
+$input-font-size-sm: var(--input-font-size-sm, 12px);
+$input-font-size-md: var(--input-font-size-md, 14px);
+$input-font-size-lg: var(--input-font-size-lg, 16px);
+$input-border-color: var(--input-border-color, #DCDCE4);
+$input-border-width: var(--input-border-width, 1px);
+$input-bg-color: var(--input-bg-color, #fff);
+$input-border-radius: var(--input-border-radius, 4px);
+$input-label-color: var(--input-label-color, #32324D);
+$input-text-color: var(--input-text-color, #666687);
+$input-border-color-focus: var(--input-border-color-focus, #4945FF);
+$input-disabled: var(--input-disabled, #EAEAEF);
+$input-em-height: var(--input-em-height, 1.35em);
+$input-icon-left-color: var(--input-icon-left-color, inherit);
+$input-icon-right-color: var(--input-icon-right-color, inherit);
+$input-loader-color: $input-text-color;
+$global-color-success: var(--global-color-succes, #4BB543);
+$global-color-warning: var(--global-color-warning, #ffc302);
+$global-color-error: var(--global-color-error, #ff0505);
+
+@keyframes rotation {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.ui-input {
+	color: $input-text-color;
+
+	// .ui-input__input_wide
+	&_wide {
+		width: 100%;
+	}
+
+	// .ui-input__input_success
+	&_success {
+		color: $global-color-success;
+	}
+
+	// .ui-input__input_warning
+	&_warning {
+		color: $global-color-warning;
+	}
+
+	// .ui-input__input_error
+	&_error {
+		color: $global-color-error;
+	}
+
+	// .ui-input__input_sm
+	&_sm {
+		font-size: $input-font-size-sm;
+	}
+
+	// .ui-input__input_md
+	&_md {
+		font-size: $input-font-size-md;
+	}
+
+	// .ui-input__input_lg
+	&_lg {
+		font-size: $input-font-size-lg;
+	}
+
+	// .ui-input__input-main
+	&__input-main {
+
+		.ui-input_horizontal & {
+			display: inline-block;
+			vertical-align: middle;
+		}
+	}
+
+	// .ui-input__input-container
+	&__input-container {
+		position: relative;
+
+		.ui-input_loading & {
+			&:after {
+				content: "";
+				position: absolute;
+				right: 30px;
+				top: 50%;
+				transform: translateY(-50%) rotate(45deg);
+				width: 1em;
+				height: 1em;
+				margin-top: -0.5em;
+				border: 1px solid $input-loader-color;
+				border-radius: 50%;
+				border-bottom-color: transparent;
+				animation: rotation 1s infinite linear;
+			}
+		}
+	}
+
+	// .ui-input__label
+	&__label {
+		display: block;
+		font-size: 0.75em;
+		font-weight: 700;
+		line-height: 1.3em;
+		color: $input-label-color;
+		margin-bottom: 0.34em;
+		cursor: pointer;
+
+		.ui-input_horizontal & {
+			display: inline-block;
+			margin-bottom: 0;
+			margin-right: 8px;
+		}
+	}
+
+	// .ui-input__text
+	&__text {
+		font-size: 0.75em;
+		line-height: 1.3em;
+		color: $input-text-color;
+		margin-top: 0.34em;
+	}
+
+	// ui-input__state
+	&__state {
+		.ui-input_success & {
+			color: inherit;
+		}
+
+		.ui-input_warning & {
+			color: inherit;
+		}
+
+		.ui-input_error & {
+			color: inherit;
+		}
+	}
+
+	// .ui-input__input
+	&__input {
+		font-size: 1em;
+		height: $input-em-height;
+		line-height: 1.42em;
+		border-radius: $input-border-radius;
+		border: $input-border-width solid $input-border-color;
+		background: $input-bg-color;
+		color: $input-text-color;
+		width: -webkit-fill-available;
+		font-family: inherit;
+
+		.ui-input_noborder & {
+			border: none;
+		}
+
+		.ui-input_borderRadius & {
+			border-radius: 0;
+		}
+
+		.ui-input_success & {
+			border-color: $global-color-success;
+			border-width: 2px;
+
+			&:focus {
+				border-color: $global-color-success;
+			}
+		}
+
+		.ui-input_warning & {
+			border-color: $global-color-warning;
+			border-width: 2px;
+
+			&:focus {
+				border-color: $global-color-warning;
+			}
+		}
+
+		.ui-input_error & {
+			border-color: $global-color-error;
+			border-width: 2px;
+
+			&:focus {
+				border-color: $global-color-error;
+			}
+		}
+
+		.ui-input_sm & {
+			padding: 0.4em 0.7em;
+		}
+
+		.ui-input_md & {
+			padding: 0.7em 1.1em;
+		}
+
+		.ui-input_lg & {
+			padding: 1.1em 1.4em;
+		}
+
+		&_left-padding {
+
+			.ui-input_sm &,
+			.ui-input_md &,
+			.ui-input_lg & {
+				padding-left: 2.2em;
+			}
+		}
+
+		&_right-padding {
+
+			.ui-input_sm &,
+			.ui-input_md &,
+			.ui-input_lg & {
+				padding-right: 6em;
+			}
+		}
+
+		&[disabled] {
+			background: $input-disabled;
+		}
+
+		&:focus {
+			outline: none;
+			border-color: $input-border-color-focus;
+			transition: .3s;
+		}
+	}
+
+	// ui-input__icon
+	&__icon {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		color: $input-icon-left-color;
+		pointer-events: none;
+
+		&_left {
+			left: 10px;
+		}
+	}
+
+	// ui-input__icon-right
+	&__icon-right {
+		color: $input-icon-right-color;
+	}
+
+	// ui-input__icon-close
+	&__icon-close {
+		color: $input-text-color;
+		cursor: pointer;
+	}
+
+	// ui-input__icons-right
+	&__icons-right {
+		position: absolute;
+		top: 50%;
+		right: 10px;
+		transform: translateY(-50%);
+		display: flex;
+		gap: 8px;
+	}
+
+	// ui-input__password-switch
+	&__password-switch {
+		cursor: pointer;
+		color: $input-text-color;
+	}
+}
