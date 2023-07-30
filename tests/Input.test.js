@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';  
-import Input from '../src/components/Input/Input.vue';
+import Input from '../src/components/Input';
 
 describe('Input', () => {
 	const wrapper = mount(Input);
