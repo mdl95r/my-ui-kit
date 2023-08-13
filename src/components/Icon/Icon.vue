@@ -1,10 +1,10 @@
 <template>
-	<i :class="classes"></i>
+  <i :class="classes" />
 </template>
 
 <script>
  export default {
-	name: 'Icon',
+	name: 'UiIcon',
 	props: {
 		name: {
 			type: String,
@@ -55,6 +55,7 @@
 @import '../../../node_modules/primeicons/primeicons.css';
 
 .icon {
+
 	&:not(.icon_sm),
 	&:not(.icon_md),
 	&:not(.icon_lg) {

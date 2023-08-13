@@ -2,13 +2,15 @@
   "name": "my-ui-kit",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test:unit": "jest"
+    "test:unit": "jest",
+    "eslint": "eslint src/**/*.{js,vue}",
+    "eslint:fix": "eslint src/**/*.{js,vue} --fix"
   },
   "dependencies": {
+    "maska": "^2.1.10",
     "primeicons": "^6.0.1",
     "random-id": "^1.0.4",
     "scss-reset": "^1.4.2",
@@ -29,6 +31,8 @@
     "@vue/test-utils": "^2.0.0",
     "@vue/vue3-jest": "^27.0.0-alpha.1",
     "babel-jest": "^27.0.6",
+    "eslint": "^8.47.0",
+    "eslint-plugin-vue": "^9.17.0",
     "jest": "^27.0.5",
     "sass": "^1.63.6",
     "storybook": "^7.0.23",

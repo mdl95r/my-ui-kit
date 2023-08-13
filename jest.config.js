@@ -1,4 +1,4 @@
-export default {
+module.exports = {
 	moduleFileExtensions: ['js', 'vue'],
   transform: {
 		'^.+\\.js$': 'babel-jest',
@@ -8,4 +8,4 @@ export default {
 	transformIgnorePatterns: [
 		"node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
 	]
-};
+}

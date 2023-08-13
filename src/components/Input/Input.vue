@@ -1,88 +1,108 @@
 <template>
-	<div 
-		class="ui-input" 
-		:class="classes"
-	>
-		<label
-			v-if="labelText"
-			class="ui-input__label"
-			:for="innerId"
-			data-testid="label"
-		>
-			{{ labelText }}
-		</label>
+  <div 
+    class="ui-input" 
+    :class="classes"
+  >
+    <label
+      v-if="labelText"
+      class="ui-input__label"
+      :for="innerId"
+      data-testid="label"
+    >
+      {{ labelText }}
+    </label>
 
-		<div class="ui-input__input-main">
-			
-			<div class="ui-input__input-container">
-				<div
-					v-if="iconLeft"
-					class="ui-input__icon ui-input__icon_left"
-				>
-					<Icon :name="iconLeft" data-testid="iconLeft" />
-				</div>
+    <div class="ui-input__input-main">
+      <div class="ui-input__input-container">
+        <div
+          v-if="iconLeft"
+          class="ui-input__icon ui-input__icon_left"
+        >
+          <Icon
+            :name="iconLeft"
+            data-testid="iconLeft"
+          />
+        </div>
 
-				<input
-					class="ui-input__input"
-					:class="inputClasses"
-					:type="innerInputType"
-					:placeholder="placeholder"
-					:value="modelValue"
-					:disabled="disabled"
-					:id="innerId"
-					:autocomplete="autocomplete"
-					:name="name"
-					:readonly="readonly"
-					:inputmode="inputmode"
-					@input="onInput"
-					data-testid="input"
-				/>
+        <input
+          :id="innerId"
+          v-maska
+          class="ui-input__input"
+          :class="inputClasses"
+          :type="innerInputType"
+          :placeholder="placeholder"
+          :value="modelValue"
+          :disabled="disabled"
+          :autocomplete="autocomplete"
+          :name="name"
+          :readonly="readonly"
+          :inputmode="inputmode"
+          :data-maska="mask"
+          data-testid="input"
+          @input="onInput"
+          @maska="onMaska"
+        >
 		
-				<div class="ui-input__icons-right" v-if="showIconsRight">
-					<Icon :name="iconRight" v-if="iconRight" class="ui-input__icon-right" data-testid="iconRight" />
+        <div
+          v-if="showIconsRight"
+          class="ui-input__icons-right"
+        >
+          <Icon
+            v-if="iconRight"
+            :name="iconRight"
+            class="ui-input__icon-right"
+            data-testid="iconRight"
+          />
 
-					<template v-if="showPasswordSwitch">
-						<div class="ui-input__password-switch" @click="onTooglePassword" data-testid="passwordSwitch" >
-							<Icon :name="isVisiblePassword ? 'eye-slash' : 'eye'" />
-						</div>
-					</template>
+          <template v-if="showPasswordSwitch">
+            <div
+              class="ui-input__password-switch"
+              data-testid="passwordSwitch"
+              @click="onTooglePassword"
+            >
+              <Icon :name="isVisiblePassword ? 'eye-slash' : 'eye'" />
+            </div>
+          </template>
 	
-					<Icon
-						v-if="showStateIcons && Boolean(state)"
-						:name="stateWithIcons"
-						class="ui-input__icon-state"
-						data-testid="showStateIcons"
-					/>
+          <Icon
+            v-if="showStateIcons && Boolean(state)"
+            :name="stateWithIcons"
+            class="ui-input__icon-state"
+            data-testid="showStateIcons"
+          />
 
-					<div
-						v-if="clearable && modelValue"
-						class="ui-input__icon-close"
-						data-testid="clearable"
-						@click="onClearInput"
-					>
-						<Icon name="times-circle" />
-					</div>
-				</div>
-			</div>
+          <div
+            v-if="internalClearable && clearable && modelValue"
+            class="ui-input__icon-close"
+            data-testid="clearable"
+            @click.stop="onClearInput"
+          >
+            <Icon name="times-circle" />
+          </div>
+        </div>
+      </div>
 
-			<div
-				v-if="statesText"
-				class="ui-input__text" 
-				:class="{ 'ui-input__state': typeof text === 'object' }"
-				data-testid="text"
-			>
-				{{ statesText }}
-			</div>
-		</div>
-	</div>
+      <div
+        v-if="statesText"
+        class="ui-input__text" 
+        :class="{ 'ui-input__state': typeof text === 'object' }"
+        data-testid="text"
+      >
+        {{ statesText }}
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import Icon from '../Icon';
 import randomId from 'random-id';
+import { vMaska } from "maska"
 
 export default {
-	name: 'Input',
+	name: 'UiInput',
+
+	directives: { maska: vMaska },
 
 	components: {
 		Icon
@@ -121,9 +141,12 @@ export default {
 		noBorderRadius: Boolean,
 
 		/**
-		* Отображает крестик после введения символов
+		* Отображает крестик после введения символов, по умолчанию включено
 		*/
-		clearable: Boolean,
+		clearable: {
+			type: Boolean,
+			default: true,
+		},
 
 		/**
 		* Показать на мобильных больший размер
@@ -315,7 +338,17 @@ export default {
 				return true
 			}
 		},
+
+		/**
+		 * Возможность задавать маску инпуту <br> задается через #, пример - +1 ### ###-##-##
+		 */
+		mask: {
+			type: String,
+			default: null,
+		}
 	},
+
+	emits: ['update:modelValue', 'clear', 'unmasked'],
 
 	data(){
 		return {
@@ -331,12 +364,13 @@ export default {
 			const borderRadius = {'ui-input_borderRadius': this.noBorderRadius}
 			const mobile = { 'ui-input_mobile': this.mobile }
 			const wide = { 'ui-input_wide': this.wide }
-			const loading = {'ui-input_loading': this.loading}
+			const loading = { 'ui-input_loading': this.loading }
+			const disabled = { 'ui-input_disabled': this.disabled }
 
 			return [
 				[this.state, this.size, this.labelPosition]
 					.filter(el => Boolean(el))
-					.map(el => `ui-input_${el}`), noBorder, mobile, wide, loading, borderRadius]
+					.map(el => `ui-input_${el}`), noBorder, mobile, wide, loading, borderRadius, disabled]
 		},
 
 		showIconsRight() {
@@ -370,16 +404,25 @@ export default {
 			}
 
 			return Object.keys(states).filter((key) => states[key]);
+		},
+
+		internalClearable() {
+			return Boolean(this.$attrs.onClear);
 		}
+	},
+
+	mounted() {
+		this.innerInputType = this.type;
+		this.onCheckId();
 	},
 
 	methods: {
 		onInput(event) {
-			this.$emit("update:modelValue", event.target.value)
+			this.$emit("update:modelValue", event.target.value);
 		},
 
 		onClearInput() {
-			this.$emit("update:modelValue", '');
+			this.$emit("clear");
 		},
 
 		onTooglePassword() {
@@ -393,12 +436,11 @@ export default {
 			if (this.id) {
 				this.innerId = this.id;
 			}
-		}
-	},
+		},
 
-	mounted(){
-		this.innerInputType = this.type;
-		this.onCheckId();
+		onMaska(e) {
+			this.$emit("unmasked", e.detail.unmasked);
+		}
 	},
 }
 </script>

@@ -16,8 +16,25 @@ export default {
 export const Base = {};
 
 export const SuccessStateWithStatusesText = {
+  render: (args) => ({
+    components: { Input },
+    setup() {
+      return { args };
+    },
+		data() {
+			return {
+				text: '',
+			}
+		},
+		methods: {
+			onClear() {
+				this.text = ''
+			}
+		},
+    template: '<Input v-bind="args" v-model="text" @clear="onClear" />',
+  }),
+
 	args: {
-		clearable: true,
 		state: 'success',
 		text: {
 			success: 'Текст успех с подсветкой!',
@@ -74,17 +91,21 @@ export const InputWithPasswordSwitch = {
 				text: '',
 			}
 		},
-    template: '<Input v-bind="args" v-model="text" />',
+		methods: {
+			onClear() {
+				this.text = ''
+			}
+		},
+    template: '<Input v-bind="args" v-model="text" @clear="onClear" />',
   }),
 
 	args: {
 		type: 'password',
 		passwordSwitch: true,
-		clearable: true,
 	}
 }
 
-export const InputWithPasswordWithoutSwitchWithClear = {
+export const InputWithPasswordSwitchWithClear = {
   render: (args) => ({
     components: { Input },
     setup() {
@@ -95,12 +116,16 @@ export const InputWithPasswordWithoutSwitchWithClear = {
 				text: '',
 			}
 		},
-    template: '<Input v-bind="args" v-model="text" />',
+		methods: {
+			onClear() {
+				this.text = ''
+			}
+		},
+    template: '<Input v-bind="args" v-model="text" @clear="onClear"/>',
   }),
 
 	args: {
 		type: 'password',
-		clearable: true,
 		id: 'input-id'
 	}
 }
@@ -109,5 +134,34 @@ export const InputReadonly = {
 	args: {
 		readonly: true,
 		modelValue: 'readonly text'
+	}
+}
+
+export const InputWithMask = {
+  render: (args) => ({
+    components: { Input },
+    setup() {
+      return { args };
+    },
+		data() {
+			return {
+				text: '',
+				unmasked: ''
+			}
+		},
+		methods: {
+			unmask(v) {
+				this.unmasked = v
+			},
+
+			onClear() {
+				this.text = ''
+			}
+		},
+    template: '<Input v-bind="args" v-model="text" @unmasked="unmask" @clear="onClear" />',
+  }),
+
+	args: {
+		mask: '+7 (###) ###-##-##'
 	}
 }

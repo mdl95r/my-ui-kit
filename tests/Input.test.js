@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';  
+import { mount } from '@vue/test-utils'; 
 import Input from '../src/components/Input';
 
 describe('Input', () => {
@@ -30,7 +30,7 @@ describe('Input', () => {
 
 	it('modelValue should be updated', async () => {
 		await wrapper.setProps({
-			modelValue: 'initialText',
+			modelValue: '',
 			'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e })
 		})
 
@@ -77,27 +77,66 @@ describe('Input', () => {
 		expect(iconRight.exists()).toBe(true);
 	});
 
-	it('clearable toggle', async () => {
-		await wrapper.setProps({
-			clearable: true,
-			modelValue: 'initialText',
-			'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e })
+	it('with clear event', async () => {
+		const onClear = jest.fn();
+
+		const wrapper = mount(Input, {
+			attrs: {
+				'onClear': onClear
+			},
+
+			props: {
+				modelValue: '',
+				'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e })
+			}
 		})
 
 		await wrapper.find('[data-testid="input"]').setValue('test');
-		let clearIcon = wrapper.find('[data-testid="clearable"]');
+
+		const clearIcon = wrapper.find('[data-testid="clearable"]');
+
+		expect(clearIcon.exists()).toBe(true);
 
 		await clearIcon.trigger('click');
-		
-		clearIcon = wrapper.find('[data-testid="clearable"]');
-		expect(clearIcon.exists()).toBe(false);
+
+		expect(onClear).toHaveBeenCalled();
+		expect(wrapper.emitted().clear[0]).toEqual([]);
+	});
+
+	it('without clear event', async () => {
+		const wrapper = mount(Input, {
+			props: {
+				modelValue: '',
+				'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e })
+			}
+		})
+
+		expect(wrapper.find('[data-testid="clearable"]').exists()).toBe(false);
+	});
+
+	it('clearable - false', async () => {
+		const onClear = jest.fn();
+
+		const wrapper = mount(Input, {
+			attrs: {
+				'onClear': onClear
+			},
+			props: {
+				clearable: false,
+				modelValue: '',
+				'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e })
+			}
+		})
+
+		expect(onClear).not.toHaveBeenCalled();
+		expect(wrapper.find('[data-testid="clearable"]').exists()).toBe(false);
 	});
 
 	it('switch password visibility', async () => {
 		await wrapper.setProps({
 			type: 'password',
 			passwordSwitch: true,
-			modelValue: 'initialText',
+			modelValue: '',
 			'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e })
 		})
 		
@@ -155,5 +194,30 @@ describe('Input', () => {
     mount(Input);
     
     expect(onCheckIdMethod).toHaveBeenCalled();
+	});
+
+	it('masked input works', async () => {
+		await wrapper.setProps({
+			mask: '+7 (###) ###-##-##',
+			modelValue: '',
+			'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e })
+		})
+		
+		await wrapper.find('[data-testid="input"]').setValue('9999074464');
+		expect(wrapper.props('modelValue')).toBe('+7 (999) 907-44-64');
+	});
+
+	it('masked input works with unmasked event', async () => {
+
+		const wrapper = mount(Input, {
+			props: {
+				mask: '+7 (###) ###-##-##',
+				modelValue: '',
+				'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e })
+			}
+		})
+
+		await wrapper.find('[data-testid="input"]').setValue('9999074464');
+		expect(wrapper.emitted().unmasked[0]).toEqual(['9999074464']);
 	});
 });

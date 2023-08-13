@@ -1,14 +1,14 @@
 <template>
-	<transition name="dropdown">
-		<div class="ui-dropdown">
-			<slot></slot>
-		</div>
-	</transition>
+  <transition name="dropdown">
+    <div class="ui-dropdown">
+      <slot />
+    </div>
+  </transition>
 </template>
 
 <script>
  export default {
-	 name: 'DropDown',
+	 name: 'UiDropdown',
  }
 </script>
 

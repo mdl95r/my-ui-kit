@@ -1,20 +1,26 @@
 <template>
-	<div class="icons">
-		<div class="icon-wrap" v-for="icon in icons" :key="icon">
-			<span>{{ icon }}</span>
-			<Icon :name="icon" />
-		</div>
-	</div>
+  <div class="icons">
+    <div
+      v-for="icon in icons"
+      :key="icon"
+      class="icon-wrap"
+    >
+      <span>{{ icon }}</span>
+      <ui-icon :name="icon" />
+    </div>
+  </div>
 </template>
 
 <script>
-	import Icon from '../Icon';
+	import UiIcon from '../Icon';
 	
 	export default {
-	name: 'Icons',
+	name: 'UiIcons',
+
 	components: {
-		Icon,
+		UiIcon,
 	},
+
 	data() {
 		return {
 			icons: [
