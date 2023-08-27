@@ -126,7 +126,8 @@ export const InputWithPasswordSwitchWithClear = {
 
 	args: {
 		type: 'password',
-		id: 'input-id'
+		id: 'input-id',
+    passwordSwitch: true
 	}
 }
 

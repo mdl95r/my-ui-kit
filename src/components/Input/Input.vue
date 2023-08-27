@@ -72,7 +72,7 @@
           />
 
           <div
-            v-if="internalClearable && clearable && modelValue"
+            v-if="showClearableButton"
             class="ui-input__icon-close"
             data-testid="clearable"
             @click.stop="onClearInput"
@@ -109,6 +109,11 @@ export default {
 	},
 
 	props: {
+    onClear: {
+      type: [Function, Array],
+      default: () => [],
+    },
+
 		/**
 		* Показать кнопку на всю ширину
 		*/
@@ -245,15 +250,15 @@ export default {
 			type: [Object, String],
 			default: '',
 			validator: (v) => {
-				const values = ['success', 'warning', 'error'];
+				const values = ['', 'success', 'warning', 'error'];
 
 				if (typeof v === 'object') {
 					if (!values.every(el => Boolean(v[el]))) {
 						console.error(`Если передается обьект, то поля должны быть: ${values.join(', ')}`);
 					}
-
-					return true
 				}
+
+        return true
 			}
 		},
 
@@ -348,7 +353,7 @@ export default {
 		}
 	},
 
-	emits: ['update:modelValue', 'clear', 'unmasked'],
+	emits: ['update:modelValue', 'unmasked'],
 
 	data(){
 		return {
@@ -407,8 +412,12 @@ export default {
 		},
 
 		internalClearable() {
-			return Boolean(this.$attrs.onClear);
-		}
+			return Boolean(this.onClear);
+		},
+
+    showClearableButton() {
+      return this.internalClearable && this.clearable && this.modelValue
+    },
 	},
 
 	mounted() {
