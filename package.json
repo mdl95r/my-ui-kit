@@ -10,6 +10,8 @@
     "eslint:fix": "eslint src/**/*.{js,vue} --fix"
   },
   "dependencies": {
+    "@vueuse/components": "^10.4.1",
+    "@vueuse/core": "^10.4.1",
     "maska": "^2.1.10",
     "primeicons": "^6.0.1",
     "random-id": "^1.0.4",
@@ -32,8 +34,10 @@
     "@vue/vue3-jest": "^27.0.0-alpha.1",
     "babel-jest": "^27.0.6",
     "eslint": "^8.47.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-vue": "^9.17.0",
     "jest": "^27.0.5",
+    "prettier": "3.0.3",
     "sass": "^1.63.6",
     "storybook": "^7.0.23",
     "vite": "^4.3.9"
