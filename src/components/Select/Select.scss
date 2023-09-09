@@ -1,0 +1,39 @@
+.ui-select {
+  position: relative;
+
+  &_disabled {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--select-list-gap-x, 4px);
+    border-radius: var(--select-border-radius, 4px);
+    margin: 0;
+    padding: 0 var(--select-list-padding-x, 4px);
+    list-style: none;
+
+    .ui-select_border & {
+      border: var(--select-border-size, 1px) solid var(--select-border-color, #000);
+    }
+  }
+
+  &__list-item {
+    font-size: var(--select-font-fize, 16px);
+    padding: var(--select-list-item-padding-y, 0.5em) var(--select-list-item-padding-x, 1em);
+    cursor: pointer;
+    background: var(--select-option-bg, #fff);
+    border-radius: var(--select-border-radius, 4px);
+    transition: .3s;
+
+    &:hover {
+      background: var(--select-option-bg-selected, #F0F0FF);
+    }
+
+    &_selected {
+      background: var(--select-option-bg-selected, #F0F0FF);
+    }
+  }
+}
