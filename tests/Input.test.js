@@ -4,6 +4,10 @@ import Input from '../src/components/Input';
 describe('Input', () => {
   const wrapper = mount(Input);
 
+  it('input render', () => {
+		expect(wrapper.exists()).toBe(true);
+	})
+
   it('check exist loader', async () => {
     await wrapper.setProps({
       loading: true,

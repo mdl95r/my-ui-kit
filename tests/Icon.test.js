@@ -4,6 +4,10 @@ import Icon from '../src/components/Icon';
 describe('Icon', () => {
 	const wrapper = mount(Icon);
 
+  it('icon render', () => {
+		expect(wrapper.exists()).toBe(true);
+	})
+
 	it('name rendered', async () => {
 		await wrapper.setProps({
 			name: 'bell'
