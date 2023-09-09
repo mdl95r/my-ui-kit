@@ -7,11 +7,11 @@ export default {
   parameters: {
     backgrounds: { default: 'dark' },
   },
-	args: {},
+  args: {},
 };
 
 export const Base = {
-	render: (args) => ({
+  render: (args) => ({
     components: { DropDown },
     setup() {
       return { args };

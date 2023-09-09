@@ -7,7 +7,7 @@ export default {
 };
 
 export const Base = {
-	args: {
-		name: 'bell'
-	},
+  args: {
+    name: 'bell',
+  },
 };
