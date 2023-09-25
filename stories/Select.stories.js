@@ -7,17 +7,19 @@ const socials = [
   { id: 3, name: 'linkedin', icon: 'linkedin' },
 ];
 
+const options = [
+  { id: 1, name: 'text-1' },
+  { id: 2, name: 'text-2' },
+  { id: 3, name: 'text-3' },
+]
+
 export default {
   title: 'Elements/Select',
   component: UiSelect,
   tags: ['autodocs'],
 
   args: {
-    options: [
-      { id: 1, name: 'text-1' },
-      { id: 2, name: 'text-2' },
-      { id: 3, name: 'text-3' },
-    ],
+    options,
     placeholder: 'Placeholder',
   },
 };
@@ -56,6 +58,7 @@ export const SelectWithSearch = {
   args: {
     searchable: true,
     label: 'Это label',
+    options,
   },
 
   render: (args) => ({
@@ -65,7 +68,7 @@ export const SelectWithSearch = {
     },
     data() {
       return {
-        selected: '',
+        selected: { id: 2, name: 'text-2' },
       };
     },
     template: '<UiSelect v-bind="args" v-model="selected" />',
@@ -77,6 +80,19 @@ export const SelectRightAndLeftIcon = {
     iconLeft: 'heart-fill',
     iconRight: 'heart-fill',
   },
+
+  render: (args) => ({
+    components: { UiSelect },
+    setup() {
+      return { args };
+    },
+    data() {
+      return {
+        selected: {},
+      };
+    },
+    template: '<UiSelect v-bind="args" v-model="selected" />',
+  }),
 };
 
 export const SelectWithCustomOptions = {

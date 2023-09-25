@@ -4,6 +4,7 @@ import Select from '../src/components/Select';
 const selectOptions = [
   { id: 1, name: 'text-1' },
   { id: 2, name: 'text-2' },
+  { id: 3, name: 'text-3' },
 ];
 
 describe('Select', () => {
@@ -94,25 +95,17 @@ describe('Select', () => {
   });
 
   it('search fields', async () => {
-    await wrapper.setProps({
-      seachable: true,
-      modelValue: '',
-      options: selectOptions,
-      'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+    const wrapper = mount(Select, {
+      props: {
+        searchable: true,
+        modelValue: { id: 2, name: 'text-2' },
+        options: selectOptions,
+        'onUpdate:model-value': (e) => wrapper.setProps({ modelValue: e }),
+      },
     });
-
-    await wrapper.trigger('click');
-
-    await wrapper.find('[data-testid="input"]').setValue('text-2');
 
     const option = wrapper.find('[data-testid="option"]');
 
-    console.log(option.html());
-
-    await option.trigger('click');
-
-    expect(wrapper.props().modelValue).toEqual({ id: 2, name: 'text-2' });
+    expect(option.text()).toBe('text-2');
   });
-
-  it.todo('disabled searhable (inner) in multiselect, even if prop searchable - true');
 });

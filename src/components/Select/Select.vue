@@ -164,8 +164,8 @@ import { vOnClickOutside } from '@vueuse/components';
 		data() {
 			return {
 				isOpen: false,
-				selection: this.multiselect ? [] : null,
-        selectionName: '',
+				selection: this.multiselect ? [] : this.modelValue || null,
+        selectionName: !this.multiselect && this.modelValue?.name ? this.modelValue.name : '',
         innerSearchable: this.multiselect && this.searchable && false,
 			}
 		},
@@ -197,13 +197,7 @@ import { vOnClickOutside } from '@vueuse/components';
 				}
 			},
 		},
-
-    mounted() {
-      this.selectionName = this.modelValue?.name;
-
-      this.selection = this.modelValue;
-    },
-
+  
 		methods: {
 			onOptionSelect(item) {
 				if (!this.multiselect) {
