@@ -353,7 +353,7 @@ export default {
 		}
 	},
 
-	emits: ['update:modelValue', 'unmasked'],
+	emits: ['update:modelValue', 'unmasked', 'clear'],
 
 	data(){
 		return {
