@@ -250,10 +250,10 @@ export default {
 			type: [Object, String],
 			default: '',
 			validator: (v) => {
-				const values = ['', 'success', 'warning', 'error'];
+				const values = ['success', 'warning', 'error'];
 
 				if (typeof v === 'object') {
-					if (!values.every(el => Boolean(v[el]))) {
+					if (!values.some(el => Boolean(v[el]))) {
 						console.error(`Если передается обьект, то поля должны быть: ${values.join(', ')}`);
 					}
 				}
@@ -408,7 +408,7 @@ export default {
 				'exclamation-circle': this.state === 'error',
 			}
 
-			return Object.keys(states).filter((key) => states[key]);
+			return Object.keys(states).filter((key) => states[key]).join('');
 		},
 
 		internalClearable() {
@@ -455,5 +455,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './Input';
+@use './Input';
 </style>
