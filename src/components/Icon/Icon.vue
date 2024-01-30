@@ -52,26 +52,26 @@
 </script>
 
 <style lang="scss" scoped>
-@import '../../../node_modules/primeicons/primeicons.css';
+@use '../../../node_modules/primeicons/primeicons.css';
 
 .icon {
 
-	&:not(.icon_sm),
-	&:not(.icon_md),
-	&:not(.icon_lg) {
-		font-size: 1em;
-	}
+  &:not(.icon_sm),
+  &:not(.icon_md),
+  &:not(.icon_lg) {
+    font-size: 1em;
+  }
 
-	&_sm {
-		font-size: 12px;
-	}
+  &_sm {
+    font-size: 12px;
+  }
 
-	&_md {
-		font-size: 16px;
-	}
+  &_md {
+    font-size: 16px;
+  }
 
-	&_lg {
-		font-size: 20px;
-	}
+  &_lg {
+    font-size: 20px;
+  }
 }
 </style>
