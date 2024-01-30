@@ -156,6 +156,24 @@ import { vOnClickOutside } from '@vueuse/components';
       showSelectedIcon: {
         type: Boolean,
 				default: true,
+      },
+
+      /**
+			* Больше этого числа в мультиселекте выбранные значения обрежутся
+			*/
+      multiselectCount: {
+        type: Number,
+				default: 4,
+      },
+
+      /**
+			* chosen: string
+			*/
+      texts: {
+        type: Object,
+        default: () => ({
+          chosen: 'Выбрано'
+        })
       }
 		},
 
@@ -216,7 +234,8 @@ import { vOnClickOutside } from '@vueuse/components';
             this.selection = this.selection.filter(el => el.id !== findedEl.id);
           }
 
-          this.selectionName = this.selection.map(el => el.name).join(', ');
+          this.selectionName = this.selection.length > this.multiselectCount ? `${this.texts.chosen}: ${this.selection.length}` : this.selection.map(el => el.name).join(', ');
+
 					this.$emit('update:model-value', this.selectionName);
 				}
 			},
@@ -258,5 +277,5 @@ import { vOnClickOutside } from '@vueuse/components';
 </script>
 
 <style lang="scss" scoped>
-@import './Select.scss';
+@use './Select.scss';
 </style>

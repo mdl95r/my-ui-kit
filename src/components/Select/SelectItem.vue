@@ -2,7 +2,7 @@
   <li
     class="ui-select__list-item"
     :class="selectedOptions(option)"
-    data-testid="option"
+    :data-testid="`option-${option.id}`"
     @click.stop="onOptionSelect(option)"
   >
     <slot />

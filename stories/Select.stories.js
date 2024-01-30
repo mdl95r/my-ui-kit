@@ -7,10 +7,13 @@ const socials = [
   { id: 3, name: 'linkedin', icon: 'linkedin' },
 ];
 
-const options = [
+export const options = [
   { id: 1, name: 'text-1' },
   { id: 2, name: 'text-2' },
   { id: 3, name: 'text-3' },
+  { id: 4, name: 'text-4' },
+  { id: 5, name: 'text-5' },
+  { id: 6, name: 'text-6' },
 ]
 
 export default {

@@ -1,11 +1,14 @@
 import { mount } from '@vue/test-utils';
 import Select from '../src/components/Select';
 
-const selectOptions = [
+export const selectOptions = [
   { id: 1, name: 'text-1' },
   { id: 2, name: 'text-2' },
   { id: 3, name: 'text-3' },
-];
+  { id: 4, name: 'text-4' },
+  { id: 5, name: 'text-5' },
+  { id: 6, name: 'text-6' },
+]
 
 describe('Select', () => {
   const wrapper = mount(Select);
@@ -19,7 +22,7 @@ describe('Select', () => {
       options: selectOptions,
     });
 
-    expect(wrapper.find('[data-testid="option"]').exists()).toBe(true);
+    expect(wrapper.find('[data-testid="option-1"]').exists()).toBe(true);
     expect(wrapper.find('[data-testid="custom-option"]').exists()).toBe(false);
   });
 
@@ -68,7 +71,7 @@ describe('Select', () => {
 
     await wrapper.trigger('click');
 
-    await wrapper.find('[data-testid="option"]').trigger('click');
+    await wrapper.find('[data-testid="option-1"]').trigger('click');
 
     expect(wrapper.props().modelValue).toEqual({ id: 1, name: 'text-1' });
   });
@@ -85,10 +88,10 @@ describe('Select', () => {
 
     await wrapper.trigger('click');
 
-    const first = wrapper.findAll('[data-testid="option"]')[0];
+    const first = wrapper.find('[data-testid="option-1"]');
     await first.trigger('click');
 
-    const second = wrapper.findAll('[data-testid="option"]')[1];
+    const second = wrapper.find('[data-testid="option-2"]');
     await second.trigger('click');
 
     expect(wrapper.props().modelValue).toBe('text-1, text-2');
@@ -104,8 +107,30 @@ describe('Select', () => {
       },
     });
 
-    const option = wrapper.find('[data-testid="option"]');
+    const option = wrapper.find('[data-testid="option-2"]');
 
     expect(option.text()).toBe('text-2');
+  });
+
+  it('number selected items more than multiselectCount', async () => {
+    const wrapper = mount(Select, {
+      props: {
+        multiselect: true,
+        modelValue: '',
+        options: selectOptions,
+        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+      },
+    });
+
+    await wrapper.trigger('click');
+
+    const numOptions = 6;
+
+    for (let i = 1; i <= numOptions; i++) {
+      const el = wrapper.find(`[data-testid="option-${i}"]`);
+      await el.trigger('click');
+    }
+
+    expect(wrapper.props().modelValue).toBe('Выбрано: 6');
   });
 });
