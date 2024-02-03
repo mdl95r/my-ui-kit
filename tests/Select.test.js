@@ -94,7 +94,7 @@ describe('Select', () => {
     const second = wrapper.find('[data-testid="option-2"]');
     await second.trigger('click');
 
-    expect(wrapper.props().modelValue).toBe('text-1, text-2');
+    expect(wrapper.props().modelValue).toEqual(["text-1", "text-2"]);
   });
 
   it('search fields', async () => {
@@ -131,6 +131,6 @@ describe('Select', () => {
       await el.trigger('click');
     }
 
-    expect(wrapper.props().modelValue).toBe('Выбрано: 6');
+    expect(wrapper.props().modelValue).toEqual(["text-1", "text-2", "text-3", "text-4", "text-5", "text-6"]);
   });
 });

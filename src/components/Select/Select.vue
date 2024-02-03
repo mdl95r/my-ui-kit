@@ -234,9 +234,11 @@ import { vOnClickOutside } from '@vueuse/components';
             this.selection = this.selection.filter(el => el.id !== findedEl.id);
           }
 
-          this.selectionName = this.selection.length > this.multiselectCount ? `${this.texts.chosen}: ${this.selection.length}` : this.selection.map(el => el.name).join(', ');
+          const options = this.selection.map(el => el.name);
 
-					this.$emit('update:model-value', this.selectionName);
+          this.selectionName = this.selection.length > this.multiselectCount ? `${this.texts.chosen}: ${this.selection.length}` : options.join(', ');
+
+					this.$emit('update:model-value', this.selection.length > this.multiselectCount ?  options : this.selectionName.split(', '));
 				}
 			},
 

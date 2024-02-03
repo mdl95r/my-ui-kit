@@ -1,5 +1,6 @@
 .ui-select {
   position: relative;
+  box-sizing: inherit;
 
   &_disabled {
     pointer-events: none;
