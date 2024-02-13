@@ -12,7 +12,7 @@
 		},
 
 		/**
-		* Размер иконки
+		* Размер иконки [sm, md, lg]
 		*/
 		size: {
 			type: String,
@@ -52,7 +52,7 @@
 </script>
 
 <style lang="scss" scoped>
-@use '../../../node_modules/primeicons/primeicons.css';
+@import '../../../node_modules/primeicons/primeicons.css';
 
 .icon {
 
