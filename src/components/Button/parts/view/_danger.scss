@@ -1,0 +1,34 @@
+&_danger:not(.button_disabled) {
+
+  &.button_secondary,
+  &.button_tertiary {
+    --button-bg: var(--button-bg-danger-secondary, #FCECEA);
+    --button-color: var(--button-color-danger-secondary, #D02B20);
+    --button-border: var(--button-border-color-danger-secondary, #F5C0B8);
+
+    &:hover {
+      --button-hover-bg: var(--button-hover-bg-danger-secondary, #fff);
+    }
+
+    &:focus {
+      --button-focus-bg: var(--button-focus-bg-danger-secondary, #FCECEA);
+
+
+      &:after {
+        --button-focus-bg: #D02B20;
+
+        opacity: 1;
+      }
+    }
+
+    &:active {
+      --button-focus-bg: var(--button-focus-bg-danger-secondary, #fff);
+      --button-border: var(--button-border-color-active-danger-secondary, #B72B1A);
+    }
+  }
+
+  &.button_loading {
+    --button-bg: #fff;
+    --button-border: #F5C0B8;
+  }
+}

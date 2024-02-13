@@ -1,0 +1,118 @@
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--button-padding);
+  color: var(--button-color);
+  font-family: var(--button-font-family, inherit);
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight, 700);
+  line-height: 1em;
+  gap: var(--button-gap);
+  border-width: var(--button-border-width, 1px);
+  border-style: solid;
+  border-radius: var(--button-border-radius, 4px);
+  min-height: var(--button-height);
+  width: var(--button-width, auto);
+  cursor: pointer;
+  box-sizing: inherit;
+  text-decoration: none;
+  transition: .3s;
+
+  &:not(.button_disabled) {
+    background: var(--button-bg, transparent);
+    border-color: var(--button-border, transparent);
+
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      border-width: 2px;
+      border-style: solid;
+      border-color: var(--button-focus-bg, #271FE0);
+      border-radius: var(--button-border-radius, 4px);
+      pointer-events: none;
+      opacity: 0;
+      transition: .2s ease-in-out;
+      z-index: 1;
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:hover {
+      background: var(--button-hover-bg, transparent);
+    }
+
+    &:focus {
+      background: var(--button-focus-bg, transparent);
+
+      &:after {
+        opacity: 1;
+      }
+    }
+
+    &:active {
+      background: var(--button-focus-bg, transparent);
+    }
+  }
+
+  &__icon-left,
+  &__icon-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--button-gap);
+  }
+
+  // sizes
+  @import './parts/sizes.scss';
+
+  // variants
+  @import './parts/variant/primary.scss';
+
+  @import './parts/variant/secondary.scss';
+
+  @import './parts/variant/tertiary.scss';
+
+  @import './parts/variant/clear.scss';
+
+  // shapes
+  &_square,
+  &_circle {
+    justify-content: center;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  &_circle {
+    --button-border-radius: 100%;
+
+    &:after {
+      --button-border-radius: 100%;
+    }
+  }
+
+  // other states
+  &_bordered {
+    --button-border: currentColor;
+  }
+
+  @import './parts/disabled.scss';
+
+  &_wide {
+    width: 100%;
+    justify-content: center;
+  }
+
+  @import './parts/view/success.scss';
+
+  @import './parts/view/danger.scss';
+
+  @import './parts/view/danger';
+}

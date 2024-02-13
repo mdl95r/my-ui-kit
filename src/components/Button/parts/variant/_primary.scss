@@ -1,0 +1,52 @@
+&_primary:not(.button_disabled) {
+  --button-bg: var(--button-bg-primary, #4945FF);
+  --button-color: var(--button-primary-color, #FFF);
+
+  &:hover {
+    --button-hover-bg: var(--button-hover-bg-primary, #7B79FF);
+  }
+
+  &:focus {
+    --button-focus-bg: var(--button-focus-bg-primary, #271FE0);
+  }
+
+  &:active {
+    --button-focus-bg: var(--button-focus-bg-primary, #271FE0);
+  }
+
+  &.button_success:not(.button_disabled) {
+    --button-bg: var(--button-bg-success, #328048);
+
+    &:hover {
+      --button-hover-bg: var(--button-hover-bg-success, #5CB176);
+    }
+
+    &:focus {
+      --button-focus-bg: var(--button-focus-bg-success, #2F6846);
+
+      &:after {
+        opacity: 1;
+      }
+    }
+
+    &:active {
+      --button-focus-bg: var(--button-focus-bg-success, #2F6846);
+    }
+  }
+
+  &.button_danger:not(.button_disabled) {
+    --button-bg: var(--button-bg-danger-primary, #D02B20);
+
+    &:hover {
+      --button-hover-bg: var(--button-hover-bg-danger-primary, #EE5E52);
+    }
+
+    &:focus {
+      --button-focus-bg: var(--button-focus-bg-danger-primary, #D02B20);
+    }
+
+    &:active {
+      --button-focus-bg: var(--button-focus-bg-danger, #B72B1A);
+    }
+  }
+}

@@ -1,0 +1,35 @@
+&_sm {
+  --button-font-size: var(--button-font-size-sm, 12px);
+  --button-padding: var(--button-padding-sm-y, 8px) var(--button-padding-sm-x, 16px);
+  --button-gap: var(--button-between-gap, 6px);
+  --button-height: var(--button-size-sm, 32px);
+
+  &.button_square,
+  &.button_circle {
+    --button-width: var(--button-size-sm, 32px);
+  }
+}
+
+&_md {
+  --button-font-size: var(--button-font-size-md, 14px);
+  --button-padding: var(--button-padding-md-y, 10px) var(--button-padding-md-x, 16px);
+  --button-gap: var(--button-between-gap, 8px);
+  --button-height: var(--button-size-md, 36px);
+
+  &.button_square,
+  &.button_circle {
+    --button-width: var(--button-size-md, 36px);
+  }
+}
+
+&_lg {
+  --button-font-size: var(--button-font-size-lg, 16px);
+  --button-padding: var(--button-padding-sm-y, 12px) var(--button-padding-sm-x, 16px);
+  --button-gap: var(--button-between-gap, 10px);
+  --button-height: var(--button-size-lg, 42px);
+
+  &.button_square,
+  &.button_circle {
+    --button-width: var(--button-size-lg, 40px);
+  }
+}

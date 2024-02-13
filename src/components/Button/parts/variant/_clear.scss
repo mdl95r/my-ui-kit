@@ -1,0 +1,23 @@
+&_clear:not(.button_disabled) {
+  --button-color: var(--button-clear-color, #4945FF);
+
+  &:hover {
+    --button-color: var(--button-clear-color-hover, #7B79FF);
+
+    &:deep(.icon) {
+      color: var(--button-icon-hover-color, #4945FF);
+    }
+  }
+
+  &:focus {
+
+    &:after {
+
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    --button-color: var(--button-clear-color-active, #271FE0);
+  }
+}
