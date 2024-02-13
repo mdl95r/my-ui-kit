@@ -10,6 +10,7 @@
 
 .ui-input {
   color: var(--input-text-color, #666687);
+  box-sizing: inherit;
 
   // .ui-input_wide
   &_wide {
@@ -34,16 +35,19 @@
   // .ui-input__input_sm
   &_sm {
     font-size: var(--input-font-size-sm, 12px);
+    height: var(--input-em-height, 32px);
   }
 
   // .ui-input__input_md
   &_md {
     font-size: var(--input-font-size-md, 14px);
+    height: var(--input-em-height, 36px);
   }
 
   // .ui-input__input_lg
   &_lg {
     font-size: var(--input-font-size-lg, 16px);
+    height: var(--input-em-height, 40px);
   }
 
   // .ui-input__input-main
@@ -120,7 +124,6 @@
   // .ui-input__input
   &__input {
     font-size: 1em;
-    height: var(--input-em-height, 1.35em);
     line-height: 1.42em;
     border-radius: var(--input-border-radius, 4px);
     border: var(--input-border-width, 1px) solid var(--input-border-color, #DCDCE4);
