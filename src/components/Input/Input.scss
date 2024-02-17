@@ -35,19 +35,16 @@
   // .ui-input__input_sm
   &_sm {
     font-size: var(--input-font-size-sm, 12px);
-    height: var(--input-em-height, 32px);
   }
 
   // .ui-input__input_md
   &_md {
     font-size: var(--input-font-size-md, 14px);
-    height: var(--input-em-height, 36px);
   }
 
   // .ui-input__input_lg
   &_lg {
     font-size: var(--input-font-size-lg, 16px);
-    height: var(--input-em-height, 40px);
   }
 
   // .ui-input__input-main
@@ -56,6 +53,18 @@
     .ui-input_horizontal & {
       display: inline-block;
       vertical-align: middle;
+    }
+
+    .ui-input__input_sm & {
+      height: var(--input-em-height, 32px);
+    }
+
+    .ui-input__input_md & {
+      height: var(--input-em-height, 36px);
+    }
+
+    .ui-input__input_lg & {
+      height: var(--input-em-height, 40px);
     }
   }
 
