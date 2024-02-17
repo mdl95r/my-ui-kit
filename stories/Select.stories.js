@@ -7,7 +7,7 @@ const socials = [
   { id: 3, name: 'linkedin', icon: 'linkedin' },
 ];
 
-export const options = [
+const options = [
   { id: 1, name: 'text-1' },
   { id: 2, name: 'text-2' },
   { id: 3, name: 'text-3' },
