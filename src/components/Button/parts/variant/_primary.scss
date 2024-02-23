@@ -15,7 +15,7 @@
   }
 
   &.button_success:not(.button_disabled) {
-    --button-bg: var(--button-bg-success, #328048);
+    --button-bg: var(--button-bg-success, var(--color-success, #328048));
 
     &:hover {
       --button-hover-bg: var(--button-hover-bg-success, #5CB176);
@@ -35,14 +35,14 @@
   }
 
   &.button_danger:not(.button_disabled) {
-    --button-bg: var(--button-bg-danger-primary, #D02B20);
+    --button-bg: var(--button-bg-danger-primary, var(--color-danger, #D02B20));
 
     &:hover {
       --button-hover-bg: var(--button-hover-bg-danger-primary, #EE5E52);
     }
 
     &:focus {
-      --button-focus-bg: var(--button-focus-bg-danger-primary, #D02B20);
+      --button-focus-bg: var(--button-focus-bg-danger-primary, var(--color-danger, #D02B20));
     }
 
     &:active {

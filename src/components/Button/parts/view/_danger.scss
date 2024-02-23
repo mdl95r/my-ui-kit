@@ -3,7 +3,7 @@
   &.button_secondary,
   &.button_tertiary {
     --button-bg: var(--button-bg-danger-secondary, #FCECEA);
-    --button-color: var(--button-color-danger-secondary, #D02B20);
+    --button-color: var(--button-color-danger-secondary, var(--color-danger, #D02B20));
     --button-border: var(--button-border-color-danger-secondary, #F5C0B8);
 
     &:hover {
@@ -15,7 +15,7 @@
 
 
       &:after {
-        --button-focus-bg: #D02B20;
+        --button-focus-bg: var(--color-danger, #D02B20);
 
         opacity: 1;
       }
