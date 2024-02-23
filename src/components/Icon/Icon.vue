@@ -45,7 +45,7 @@
 				size = ` icon_${this.size}`
 			}
 
-			return `icon pi pi-${this.name}${size}`
+			return `icon pi pi-${this.name.toLowerCase()}${size}`
 		}
 	}
 }
