@@ -5,6 +5,11 @@
   margin: 0;
 }
 
+* :after,
+:before {
+  box-sizing: border-box;
+}
+
 .my-alert {
   position: fixed;
   bottom: 10px;
