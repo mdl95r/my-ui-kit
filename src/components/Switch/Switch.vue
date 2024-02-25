@@ -1,7 +1,8 @@
 <template>
   <div class="ui-switch">
     <input 
-      type="checkbox" 
+      id="ui-switch" 
+      type="checkbox"
       :checked="modelValue"
       :disabled="disabled"
       class="ui-switch__checkbox"
@@ -9,7 +10,7 @@
       @change="switchHandler"
     >
 
-    <div class="ui-switch__marker"></div>
+    <label class="ui-switch__marker" for="ui-switch" data-test-id="switch"></label>
 
     <div v-if="$slots.default" class="ui-switch__text">
       <slot />
@@ -25,16 +26,19 @@ defineProps({
     default: false
   },
 
+  /**
+  * Делает switch неактивным
+  */
   disabled: {
     type: Boolean,
     default: false,
   }
 })
 
-const emit = defineEmits(['onUpdate:modelValue']);
+const emit = defineEmits(['update:modelValue']);
 
 const switchHandler = ($event) => {
-  emit('onUpdate:modelValue', $event.target.checked);
+  emit('update:modelValue', $event.target.checked);
 }
 </script>
 

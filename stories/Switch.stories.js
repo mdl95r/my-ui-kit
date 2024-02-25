@@ -1,4 +1,5 @@
 import UiSwitch from "../src/components/Switch";
+import './assets/main.scss';
 
 export default {
   title: 'Elements/Switch',
@@ -35,7 +36,8 @@ export const WithText = {
       };
     },
     template: `
-        <UiSwitch v-bind="args" v-model="checked">Text</UiSwitch>
+        <UiSwitch v-bind="args" v-model="checked">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit molestias ex natus eligendi nulla tempora id illo a enim, sapiente officia corporis incidunt asperiores modi quibusdam ut et repellat neque! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit molestias ex natus eligendi nulla tempora id illo a enim, sapiente officia corporis incidunt asperiores modi quibusdam ut et repellat neque!</UiSwitch>
     `,
   }),
 };
