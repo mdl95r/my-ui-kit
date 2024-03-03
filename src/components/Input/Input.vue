@@ -1,6 +1,6 @@
 <template>
-  <div 
-    class="ui-input" 
+  <div
+    class="ui-input"
     :class="classes"
   >
     <label
@@ -41,8 +41,8 @@
           data-testid="input"
           @input="onInput"
           @maska="onMaska"
-        >
-		
+        />
+
         <div
           v-if="showIconsRight"
           class="ui-input__icons-right"
@@ -54,6 +54,13 @@
             data-testid="iconRight"
           />
 
+          <Icon
+            v-if="loading"
+            name="spinner"
+            class="ui-input__icon-right ui-input__icon-right_spinner"
+            data-testid="loader"
+          />
+
           <template v-if="showPasswordSwitch">
             <div
               class="ui-input__password-switch"
@@ -63,7 +70,7 @@
               <Icon :name="isVisiblePassword ? 'eye-slash' : 'eye'" />
             </div>
           </template>
-	
+
           <Icon
             v-if="showStateIcons && Boolean(state)"
             :name="stateWithIcons"
@@ -79,16 +86,16 @@
           >
             <Icon name="times-circle" />
           </div>
-        </div>
-      </div>
 
-      <div
-        v-if="statesText"
-        class="ui-input__text" 
-        :class="{ 'ui-input__state': typeof text === 'object' }"
-        data-testid="text"
-      >
-        {{ statesText }}
+          <div
+            v-if="statesText"
+            class="ui-input__text"
+            :class="{ 'ui-input__state': typeof text === 'object' }"
+            data-testid="text"
+          >
+            {{ statesText }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -97,361 +104,366 @@
 <script>
 import Icon from '../Icon';
 import randomId from 'random-id';
-import { vMaska } from "maska"
+import { vMaska } from 'maska';
 
 export default {
-	name: 'UiInput',
+  name: 'UiInput',
 
-	directives: { maska: vMaska },
+  directives: { maska: vMaska },
 
-	components: {
-		Icon
-	},
+  components: {
+    Icon,
+  },
 
-	props: {
+  props: {
     onClear: {
       type: [Function, Array],
       default: () => [],
     },
 
-		/**
-		* Показать кнопку на всю ширину
-		*/
-		wide: {
-			type: Boolean,
-			default: false
-		},
+    /**
+     * Показать кнопку на всю ширину
+     */
+    wide: {
+      type: Boolean,
+      default: false,
+    },
 
-		/**
-		* Использовать в компоненте v-model="имя модели"
-		*/
-		modelValue: {
-			type: String,
-			default: '',
-		},
+    /**
+     * Использовать в компоненте v-model="имя модели"
+     */
+    modelValue: {
+      type: String,
+      default: '',
+    },
 
-		/**
-		* Делает инпут неактивным
-		*/
-		disabled: Boolean,
+    /**
+     * Делает инпут неактивным
+     */
+    disabled: Boolean,
 
-		/**
-		* Убирает границы
-		*/
-		noBorder: Boolean,
+    /**
+     * Убирает границы
+     */
+    noBorder: Boolean,
 
-		/**
-		* Убирает закругления
-		*/
-		noBorderRadius: Boolean,
+    /**
+     * Убирает закругления
+     */
+    noBorderRadius: Boolean,
 
-		/**
-		* Отображает крестик после введения символов, по умолчанию включено
-		*/
-		clearable: {
-			type: Boolean,
-			default: true,
-		},
+    /**
+     * Отображает крестик после введения символов, по умолчанию включено
+     */
+    clearable: {
+      type: Boolean,
+      default: true,
+    },
 
-		/**
-		* Показать на мобильных больший размер
-		*/
-		mobile: Boolean,
+    /**
+     * Показать на мобильных больший размер
+     */
+    mobile: Boolean,
 
-		/**
-		* Показать индикатор загрузки
-		*/
-		loading: Boolean,
+    /**
+     * Показать индикатор загрузки
+     */
+    loading: Boolean,
 
-		/**
-		* Показать иконки состояний
-		*/
-		showStateIcons: {
-			type: Boolean,
-			default: true,
-		},
+    /**
+     * Показать иконки состояний
+     */
+    showStateIcons: {
+      type: Boolean,
+      default: true,
+    },
 
-		/**
-		* Иконка слева
-		*/
-		iconLeft: {
-			type: [String],
-			default: ''
-		},
+    /**
+     * Иконка слева
+     */
+    iconLeft: {
+      type: [String],
+      default: '',
+    },
 
-		/**
-		* Иконка справа
-		*/
-		iconRight: {
-			type: [String],
-			default: ''
-		},
+    /**
+     * Иконка справа
+     */
+    iconRight: {
+      type: [String],
+      default: '',
+    },
 
-		/**
-		* Текст-подсказка инпута
-		*/
-		placeholder: {
-			type: String,
-			default: null
-		},
+    /**
+     * Текст-подсказка инпута
+     */
+    placeholder: {
+      type: String,
+      default: null,
+    },
 
-		/**
-		* id инпута
-		*/
-		id: {
-			type: String,
-			default: ''
-		},
+    /**
+     * id инпута
+     */
+    id: {
+      type: String,
+      default: '',
+    },
 
-		/**
-		* Имя инпута
-		*/
-		name: {
-			type: String,
-			default: null
-		},
+    /**
+     * Имя инпута
+     */
+    name: {
+      type: String,
+      default: null,
+    },
 
-		/**
-		* Только чтение
-		*/
-		readonly: {
-			type: Boolean,
-			default: false,
-		},
+    /**
+     * Только чтение
+     */
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
 
-		/**
-		* Автозаполнение
-		*/
-		autocomplete: {
-			type: Boolean,
-			default: false,
-		},
+    /**
+     * Автозаполнение
+     */
+    autocomplete: {
+      type: Boolean,
+      default: false,
+    },
 
-		/**
-		* Label над инпутом
-		*/
-		labelText: {
-			type: String,
-			default: null,
-		},
+    /**
+     * Label над инпутом
+     */
+    labelText: {
+      type: String,
+      default: null,
+    },
 
-		/**
-		* Добавляет переключатель для показа/скрытия пароля
-		*/
-		passwordSwitch: {
-			type: Boolean,
-			default: false,
-		},
-		
-		/**
-		* Текст под инпутом
-		*/
-		text: {
-			type: [Object, String],
-			default: '',
-			validator: (v) => {
-				const values = ['success', 'warning', 'error'];
+    /**
+     * Добавляет переключатель для показа/скрытия пароля
+     */
+    passwordSwitch: {
+      type: Boolean,
+      default: false,
+    },
 
-				if (typeof v === 'object') {
-					if (!values.some(el => Boolean(v[el]))) {
-						console.error(`Если передается обьект, то поля должны быть: ${values.join(', ')}`);
-					}
-				}
+    /**
+     * Текст под инпутом
+     */
+    text: {
+      type: [Object, String],
+      default: '',
+      validator: (v) => {
+        const values = ['success', 'warning', 'error'];
 
-        return true
-			}
-		},
+        if (typeof v === 'object') {
+          if (!values.some((el) => Boolean(v[el]))) {
+            console.error(`Если передается обьект, то поля должны быть: ${values.join(', ')}`);
+          }
+        }
 
-		/**
-		* Состояние инпута
-		*/
-		state: {
-			type: String,
-			default: '',
-			validator: (v) => {
-				const values = ['', 'success', 'warning', 'error']
-				if (!values.includes(v)) {
-					console.error(`Значение ${v} не валидно, допустимые значения: ${values.join(', ')}`);
-				}
+        return true;
+      },
+    },
 
-				return true
-			}
-		},
+    /**
+     * Состояние инпута
+     */
+    state: {
+      type: String,
+      default: '',
+      validator: (v) => {
+        const values = ['', 'success', 'warning', 'error'];
+        if (!values.includes(v)) {
+          console.error(`Значение ${v} не валидно, допустимые значения: ${values.join(', ')}`);
+        }
 
-		/**
-		* Тип инпута
-		*/
-		type: {
-			type: String,
-			default: 'text',
-			validator: (v) => {
-				const values = ['text', 'number', 'radio', 'checkbox', 'password']
-				if (!values.includes(v)) {
-					console.error(`Значение ${v} не валидно, допустимые значения: ${values.join(', ')}`);
-				}
+        return true;
+      },
+    },
 
-				return true
-			}
-		},
+    /**
+     * Тип инпута
+     */
+    type: {
+      type: String,
+      default: 'text',
+      validator: (v) => {
+        const values = ['text', 'number', 'radio', 'checkbox', 'password'];
+        if (!values.includes(v)) {
+          console.error(`Значение ${v} не валидно, допустимые значения: ${values.join(', ')}`);
+        }
 
-		/**
-		* Размер инпута
-		*/
-		size: {
-			type: String,
-			default: 'md',
-			validator: (v) => {
-				const values = ['sm', 'md', 'lg'];
+        return true;
+      },
+    },
 
-				if (!values.includes(v)) {
-					console.error(`Значение ${v} некорректно, допустимые значения: ${values.join(', ')}`);
-				}
+    /**
+     * Размер инпута
+     */
+    size: {
+      type: String,
+      default: 'md',
+      validator: (v) => {
+        const values = ['sm', 'md', 'lg'];
 
-				return true
-			}
-		},
+        if (!values.includes(v)) {
+          console.error(`Значение ${v} некорректно, допустимые значения: ${values.join(', ')}`);
+        }
 
-		/**
-		 * Позиция лейбла
-		 */
-		labelPosition: {
-			type: String,
-			default: '',
-			validator: (v) => {
-				const values = ['', 'horizontal']
+        return true;
+      },
+    },
 
-				if (!values.includes(v)) {
-					console.error(`Значение ${v} не валидно, допустимые значения: ${values.join(', ')}`);
-				}
+    /**
+     * Позиция лейбла
+     */
+    labelPosition: {
+      type: String,
+      default: '',
+      validator: (v) => {
+        const values = ['', 'horizontal'];
 
-				return true
-			} 
-		},
+        if (!values.includes(v)) {
+          console.error(`Значение ${v} не валидно, допустимые значения: ${values.join(', ')}`);
+        }
 
-		/**
-		 * Возможность показать различную клавиатуру на мобильных
-		 */
-		inputmode: {
-			type: String,
-			default: 'text',
-			validator: (v) => {
-				const values = ['text', 'none', 'decimal', 'numeric', 'tel', 'search', 'email', 'url']
-				if (!values.includes(v)) {
-					console.error(`Значение ${v} не валидно, допустимые значения: ${values.join(', ')}`);
-				}
+        return true;
+      },
+    },
 
-				return true
-			}
-		},
+    /**
+     * Возможность показать различную клавиатуру на мобильных
+     */
+    inputmode: {
+      type: String,
+      default: 'text',
+      validator: (v) => {
+        const values = ['text', 'none', 'decimal', 'numeric', 'tel', 'search', 'email', 'url'];
+        if (!values.includes(v)) {
+          console.error(`Значение ${v} не валидно, допустимые значения: ${values.join(', ')}`);
+        }
 
-		/**
-		 * Возможность задавать маску инпуту <br> задается через #, пример - +1 ### ###-##-##
-		 */
-		mask: {
-			type: String,
-			default: null,
-		}
-	},
+        return true;
+      },
+    },
 
-	emits: ['update:modelValue', 'unmasked', 'clear'],
+    /**
+     * Возможность задавать маску инпуту <br> задается через #, пример - +1 ### ###-##-##
+     */
+    mask: {
+      type: String,
+      default: null,
+    },
+  },
 
-	data(){
-		return {
-			isVisiblePassword: false,
-			innerInputType: null,
-			innerId: randomId(8),
-		}
-	},
+  emits: ['update:modelValue', 'unmasked', 'clear'],
 
-	computed: {
-		classes() {
-			const noBorder = { 'ui-input_noborder': this.noBorder }
-			const borderRadius = {'ui-input_borderRadius': this.noBorderRadius}
-			const mobile = { 'ui-input_mobile': this.mobile }
-			const wide = { 'ui-input_wide': this.wide }
-			const loading = { 'ui-input_loading': this.loading }
-			const disabled = { 'ui-input_disabled': this.disabled }
+  data() {
+    return {
+      isVisiblePassword: false,
+      innerInputType: null,
+      innerId: randomId(8),
+    };
+  },
 
-			return [
-				[this.state, this.size, this.labelPosition]
-					.filter(el => Boolean(el))
-					.map(el => `ui-input_${el}`), noBorder, mobile, wide, loading, borderRadius, disabled]
-		},
+  computed: {
+    classes() {
+      const noBorder = { 'ui-input_noborder': this.noBorder };
+      const borderRadius = { 'ui-input_borderRadius': this.noBorderRadius };
+      const mobile = { 'ui-input_mobile': this.mobile };
+      const wide = { 'ui-input_wide': this.wide };
+      const disabled = { 'ui-input_disabled': this.disabled };
 
-		showIconsRight() {
-			return this.iconRight || this.clearable || this.passwordSwitch || (this.showStateIcons && Boolean(this.state));
-		},
+      return [
+        [this.state, this.size, this.labelPosition].filter((el) => Boolean(el)).map((el) => `ui-input_${el}`),
+        noBorder,
+        mobile,
+        wide,
+        borderRadius,
+        disabled,
+      ];
+    },
 
-		showPasswordSwitch() {
-			return this.type === 'password' && this.passwordSwitch && this.modelValue;
-		},
+    showIconsRight() {
+      return this.iconRight || this.clearable || this.passwordSwitch || (this.showStateIcons && Boolean(this.state));
+    },
 
-		inputClasses() {
-			return {
-				'ui-input__input_left-padding' : this.iconLeft,
-				'ui-input__input_right-padding' : this.showIconsRight,
-			}
-		},
+    showPasswordSwitch() {
+      return this.type === 'password' && this.passwordSwitch && this.modelValue;
+    },
 
-		statesText() {
-			if (typeof this.text === 'string') {
-				return this.text
-			}
+    inputClasses() {
+      return {
+        'ui-input__input_left-padding': this.iconLeft,
+        'ui-input__input_right-padding': this.showIconsRight,
+      };
+    },
 
-			return this.text[this.state];
-		},
+    statesText() {
+      if (typeof this.text === 'string') {
+        return this.text;
+      }
 
-		stateWithIcons() {
-			const states = {
-				'check': this.state === 'success',
-				'exclamation-triangle': this.state === 'warning',
-				'exclamation-circle': this.state === 'error',
-			}
+      return this.text[this.state];
+    },
 
-			return Object.keys(states).filter((key) => states[key]).join('');
-		},
+    stateWithIcons() {
+      const states = {
+        check: this.state === 'success',
+        'exclamation-triangle': this.state === 'warning',
+        'exclamation-circle': this.state === 'error',
+      };
 
-		internalClearable() {
-			return Boolean(this.onClear);
-		},
+      return Object.keys(states)
+        .filter((key) => states[key])
+        .join('');
+    },
+
+    internalClearable() {
+      return Boolean(this.onClear);
+    },
 
     showClearableButton() {
-      return this.internalClearable && this.clearable && this.modelValue
+      return this.internalClearable && this.clearable && this.modelValue;
     },
-	},
+  },
 
-	mounted() {
-		this.innerInputType = this.type;
-		this.onCheckId();
-	},
+  mounted() {
+    this.innerInputType = this.type;
+    this.onCheckId();
+  },
 
-	methods: {
-		onInput(event) {
-			this.$emit("update:modelValue", event.target.value);
-		},
+  methods: {
+    onInput(event) {
+      this.$emit('update:modelValue', event.target.value);
+    },
 
-		onClearInput() {
-			this.$emit("clear");
-		},
+    onClearInput() {
+      this.$emit('clear');
+    },
 
-		onTooglePassword() {
-			if (this.modelValue) {
-				this.isVisiblePassword = !this.isVisiblePassword;
-				this.innerInputType = this.isVisiblePassword ? 'text' : 'password';
-			}
-		},
+    onTooglePassword() {
+      if (this.modelValue) {
+        this.isVisiblePassword = !this.isVisiblePassword;
+        this.innerInputType = this.isVisiblePassword ? 'text' : 'password';
+      }
+    },
 
-		onCheckId() {
-			if (this.id) {
-				this.innerId = this.id;
-			}
-		},
+    onCheckId() {
+      if (this.id) {
+        this.innerId = this.id;
+      }
+    },
 
-		onMaska(e) {
-			this.$emit("unmasked", e.detail.unmasked);
-		}
-	},
-}
+    onMaska(e) {
+      this.$emit('unmasked', e.detail.unmasked);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

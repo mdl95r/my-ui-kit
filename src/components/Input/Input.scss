@@ -71,23 +71,6 @@
   // .ui-input__input-container
   &__input-container {
     position: relative;
-
-    .ui-input_loading & {
-      &:after {
-        content: "";
-        position: absolute;
-        right: 30px;
-        top: 50%;
-        transform: translateY(-50%) rotate(45deg);
-        width: 1em;
-        height: 1em;
-        margin-top: -0.5em;
-        border: 1px solid var(--input-loader-color, #666687);
-        border-radius: 50%;
-        border-bottom-color: transparent;
-        animation: rotation 1s infinite linear;
-      }
-    }
   }
 
   // .ui-input__label
@@ -238,6 +221,11 @@
   // ui-input__icon-right
   &__icon-right {
     color: var(--input-icon-right-color, inherit);
+  }
+
+  // .ui-input__icon-right_spinner
+  &__icon-right_spinner {
+    animation: rotation 1s infinite linear;
   }
 
   // ui-input__icon-close

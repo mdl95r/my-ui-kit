@@ -13,7 +13,7 @@ describe('Input', () => {
       loading: true,
     })
 
-    expect(wrapper.classes()).toContain('ui-input_loading');
+    expect(wrapper.find('[data-testid="loader"]').exists()).toBe(true);
   });
 
   it('check prop state - success become a class ui-input_success', async () => {
