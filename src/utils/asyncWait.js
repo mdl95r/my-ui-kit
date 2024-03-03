@@ -1,0 +1,1 @@
+export default (ms, val = null) => new Promise((resolve) => setTimeout(() => resolve(val), ms));

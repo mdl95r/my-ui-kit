@@ -1,5 +1,6 @@
 import UiSelect from '../src/components/Select';
 import Icon from '../src/components/Icon';
+import asyncWait from '../src/utils/asyncWait.js';
 
 const socials = [
   { id: 1, name: 'reddit', icon: 'reddit' },
@@ -159,13 +160,55 @@ export const SelectMultiselect = {
     },
     data() {
       return {
-        selected: null,
+        selected: [],
       };
     },
-    template: '<UiSelect v-bind="args" v-model="selected" />',
+    template: `
+      <p>{{ selected?.join(', ') }}</p>
+      <UiSelect v-bind="args" v-model="selected" />
+    `,
   }),
   args: {
     multiselect: true,
     searchable: true,
   },
+};
+
+export const SelectWithAsyncSearch = {
+  args: {
+    searchable: true,
+  },
+
+  render: (args) => ({
+    components: { UiSelect },
+    setup() {
+      return { args };
+    },
+    data() {
+      return {
+        selected: null,
+        isLoading: false,
+        options: [],
+      };
+    },
+    methods: {
+      async searchHandler(val) {
+        console.log(val);
+        this.isLoading = true;
+        
+        await asyncWait(1500);
+
+        this.isLoading = false;
+        this.options = [{ id: 1, name: 'москва' }, { id: 2, name: 'москва-2' }];
+      }
+    },
+    template: `
+      <UiSelect 
+        v-bind="args"
+        v-model="selected"
+        :options="options"
+        :loading="isLoading" 
+        @search="searchHandler"
+      />`,
+  }),
 };
