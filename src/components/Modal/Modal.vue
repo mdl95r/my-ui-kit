@@ -1,16 +1,21 @@
 <template>
   <Teleport to="body">
-    <div 
+    <div
       ref="modal"
       class="modal"
-      :class="{ 'open': open }"
+      :class="[
+        { open: open },
+        { 'slide-down': animation === 'slide-down' && !customAnimationClass },
+        { 'fade-in': animation === 'fade-in' && !customAnimationClass },
+        customAnimationClass,
+      ]"
       tabindex="0"
       @keydown.esc="closeHandler"
     >
       <div
         class="modal__backdrop"
-        @click="closeHandler">
-      </div>
+        @click="closeHandler"
+      ></div>
 
       <div class="modal__body">
         <Button
@@ -41,19 +46,38 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-})
 
-const emit = defineEmits(['update:open'])
+  /**
+   * Анимация [slide-down, fade-in]
+   */
+  animation: {
+    type: String,
+    default: 'slide-down',
+  },
+
+  /**
+   * Класс анимации
+   */
+  customAnimationClass: {
+    type: String,
+    default: null,
+  },
+});
+
+const emit = defineEmits(['update:open']);
 
 const closeHandler = () => {
   emit('update:open', false);
-}
+};
 
-watch(() => props.open, (bool) => {
-  if (bool) {
-    modal.value.focus();
+watch(
+  () => props.open,
+  (bool) => {
+    if (bool) {
+      modal.value.focus();
+    }
   }
-})
+);
 </script>
 
 <style scoped lang="scss">

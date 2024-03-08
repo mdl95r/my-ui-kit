@@ -17,3 +17,23 @@
   display: flex;
   justify-content: center;
 }
+
+@keyframes my-custom-animation-class {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.scale-in {
+  top: 0;
+  transform: scale(0);
+
+  &.open {
+    animation: my-custom-animation-class ease-in .2s;
+    animation-fill-mode: forwards;
+  }
+}
