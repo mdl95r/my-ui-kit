@@ -4,6 +4,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "jsx": "preserve",
-    "types": ["vitest/globals"]
+    "allowJs": true,
+    "checkJs": true
   }
 }

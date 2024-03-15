@@ -29,6 +29,7 @@
     "@storybook/testing-library": "^0.2.2",
     "@storybook/vue3": "^7.6.6",
     "@storybook/vue3-vite": "^7.6.6",
+    "@types/jest": "^29.5.12",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vue/test-utils": "^2.0.0",
     "@vue/vue3-jest": "^27.0.0-alpha.1",
