@@ -2,7 +2,7 @@
   <Teleport to="body">
     <div
       ref="modal"
-      class="modal"
+      class="ui-modal"
       :class="[
         { open: open },
         { 'slide-down': animation === 'slide-down' && !customAnimationClass },
@@ -13,17 +13,17 @@
       @keydown.esc="closeHandler"
     >
       <div
-        class="modal__backdrop"
+        class="ui-modal__backdrop"
         @click="closeHandler"
       ></div>
 
-      <div class="modal__body">
+      <div class="ui-modal__body">
         <Button
           icon-left="times"
           variant="clear"
           size="sm"
           shape="square"
-          class="modal__close"
+          class="ui-modal__close"
           @click="closeHandler"
         />
         <slot />

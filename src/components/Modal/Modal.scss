@@ -18,7 +18,7 @@
   }
 }
 
-.modal {
+.ui-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -47,7 +47,7 @@
     }
   }
 
-  // .modal__backdrop
+  // .ui-modal__backdrop
   &__backdrop {
     position: absolute;
     top: 0;
@@ -57,7 +57,7 @@
     background-color: rgba(1, 1, 1, .65);
   }
 
-  // .modal__body
+  // .ui-modal__body
   &__body {
     max-height: 100vh;
     overflow-y: auto;
@@ -72,7 +72,7 @@
     background-color: #fff;
   }
 
-  // .modal__close
+  // .ui-modal__close
   &__close {
     --button-size-sm: 24px;
 
