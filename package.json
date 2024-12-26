@@ -21,14 +21,14 @@
   "devDependencies": {
     "@babel/core": "^7.22.8",
     "@babel/preset-env": "^7.22.7",
-    "@storybook/addon-controls": "^7.6.6",
-    "@storybook/addon-essentials": "^7.6.6",
-    "@storybook/addon-interactions": "^7.6.6",
-    "@storybook/addon-links": "^7.6.6",
-    "@storybook/blocks": "^7.6.6",
+    "@storybook/addon-controls": "^8.2.0-alpha.2",
+    "@storybook/addon-essentials": "^8.2.0-alpha.2",
+    "@storybook/addon-interactions": "^8.2.0-alpha.2",
+    "@storybook/addon-links": "^8.2.0-alpha.2",
+    "@storybook/blocks": "^8.2.0-alpha.2",
     "@storybook/testing-library": "^0.2.2",
-    "@storybook/vue3": "^7.6.6",
-    "@storybook/vue3-vite": "^7.6.6",
+    "@storybook/vue3": "^8.2.0-alpha.2",
+    "@storybook/vue3-vite": "^8.2.0-alpha.2",
     "@types/jest": "^29.5.12",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vue/test-utils": "^2.0.0",
@@ -40,7 +40,8 @@
     "jest": "^27.0.5",
     "prettier": "3.0.3",
     "sass": "^1.63.6",
-    "storybook": "^7.6.6",
+    "storybook": "^8.2.0-alpha.2",
+    "storybook-addon-vue-slots": "^0.9.29",
     "vite": "^4.3.9"
   }
 }
