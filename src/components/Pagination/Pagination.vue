@@ -18,7 +18,7 @@
         :class="{ 'ui-pagination__item_active': page === currentPage }"
         @click="onItemHandler(page)"
       >
-        <template v-if="page === DOTS">
+        <template v-if="page === dots">
           <span>&#8230;</span>
         </template>
 
