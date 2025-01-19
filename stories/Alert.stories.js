@@ -10,6 +10,10 @@ export default {
       control: 'select',
       options: ['info', 'success', 'warning', 'danger', 'draft'],
     },
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+    },
   },
 };
 
