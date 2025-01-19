@@ -8,7 +8,7 @@ export default {
   argTypes: {
     state: {
       control: 'select',
-      options: ['info', 'success', 'warning', 'danger'],
+      options: ['info', 'success', 'warning', 'danger', 'draft'],
     },
   },
 };
@@ -87,6 +87,48 @@ export const Danger = {
         <UiAlert v-bind="args">
           <template #title>
             <p><strong>Danger alert:</strong> lorem ipsum dolor sit amet</p>
+          </template>
+        </UiAlert>
+      `,
+  }),
+};
+
+export const Draft = {
+  args: {
+    state: 'draft'
+  },
+
+  render: (args) => ({
+    components: { UiAlert },
+    setup() {
+      return { args };
+    },
+    template: 
+      `
+        <UiAlert v-bind="args">
+          <template #title>
+            <p><strong>Draft:</strong> lorem ipsum dolor sit amet</p>
+          </template>
+        </UiAlert>
+      `,
+  }),
+};
+
+export const Update = {
+  args: {
+    state: 'update'
+  },
+
+  render: (args) => ({
+    components: { UiAlert },
+    setup() {
+      return { args };
+    },
+    template: 
+      `
+        <UiAlert v-bind="args">
+          <template #title>
+            <p class="color-inherit"><strong>Update:</strong> lorem ipsum dolor sit amet</p>
           </template>
         </UiAlert>
       `,
@@ -181,6 +223,28 @@ export const fixedBottom = {
           </template>
         </UiAlert>
       </div>
+      `,
+  }),
+};
+
+export const HideIcon = {
+  args: {
+    state: 'update',
+    hideIcon: true,
+  },
+
+  render: (args) => ({
+    components: { UiAlert },
+    setup() {
+      return { args };
+    },
+    template: 
+      `
+        <UiAlert v-bind="args">
+          <template #title>
+            <p class="color-inherit"><strong>Update:</strong> lorem ipsum dolor sit amet</p>
+          </template>
+        </UiAlert>
       `,
   }),
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="ui-alert" :class="classes">
-    <div class="ui-alert__icon">
+    <div v-if="!hideIcon" class="ui-alert__icon">
       <Icon
         :name="iconName"
       />
@@ -38,7 +38,7 @@ import { computed, useSlots } from 'vue';
 
 const props = defineProps({
   /**
-   * Состояния [info, success, warning, danger]
+   * Состояния [info, success, warning, danger, draft, update]
    */
   state: {
     type: String,
@@ -59,6 +59,22 @@ const props = defineProps({
   wide: {
     type: Boolean,
     default: false
+  },
+
+  /**
+   * Скрыть иконку
+   */
+  hideIcon: {
+    type: Boolean,
+    default: false
+  },
+
+  /**
+   * Размер [sm, md, lg]
+   */
+  size: {
+    type: String,
+    default: 'lg'
   }
 })
 
@@ -70,6 +86,8 @@ const iconName = computed(() => {
   const names = {
     'exclamation-circle': props.state === 'info' || props.state === 'warning' || props.state === 'danger',
     'check-circle': props.state === 'success',
+    'pencil': props.state === 'draft',
+    'sync': props.state === 'update'
   }
 
   return Object.keys(names).filter((el) => names[el]).join('')
@@ -78,6 +96,7 @@ const iconName = computed(() => {
 const classes = computed(() => {
   return [
     `ui-alert_${props.state}`,
+    `ui-alert_${props.size}`,
     { 'ui-alert_center': !slots.body },
     { 'ui-alert_wide': props.wide }
   ]
