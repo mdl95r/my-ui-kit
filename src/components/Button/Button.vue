@@ -19,181 +19,174 @@
   </component>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue';
 import Icon from '../Icon';
 import Spinner from '../Spinner';
 
-  export default {
-    name: 'UiButton',
-    components: {
-      Icon,
-      Spinner,
-    },
+const props = defineProps({
+  /**
+   * Иконка слева
+   */
+  iconLeft: {
+    type: String,
+    default: null,
+  },
 
-    props: {
-      /**
-       * Иконка слева
-       */
-      iconLeft: {
-        type: String,
-        default: null
+  /**
+   * Иконка справа
+   */
+  iconRight: {
+    type: String,
+    default: null,
+  },
+
+  /**
+   * Спиннер загрузки
+   */
+  loading: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
+   * Кнопка на всю ширину, выравнивает по центру
+   */
+  wide: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
+   * Сделать кнопку неактивной
+   */
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
+   * Показать границу у кнопки
+   */
+  border: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
+   * Размер [sm, md, lg]
+   */
+  size: {
+    type: String,
+    default: 'md',
+  },
+
+  /**
+   * Меняет тег на "a" и прописывает аттрибут "href"
+   */
+  href: {
+    type: String,
+    default: null,
+  },
+
+  /**
+   * Меняет тег на "router-link" и прописывает аттрибут "to"
+   */
+  to: {
+    type: String,
+    default: null,
+  },
+
+  /**
+   * Тип кнопки [button, submit]
+   */
+  typeButton: {
+    type: String,
+    default: 'button',
+  },
+
+  /**
+   * Цвет кнопки [primary, secondary, tertiary, clear]
+   */
+  variant: {
+    type: String,
+    default: 'primary',
+  },
+
+  /**
+   * Форма кнопки [square, circle]
+   */
+  shape: {
+    type: String,
+    default: '',
+  },
+
+  /**
+   * Вид кнопки ['', 'danger', 'success']
+   */
+  view: {
+    type: String,
+    default: '',
+  },
+});
+
+const buttonOptions = computed(() => {
+  {
+    const tags = {
+      href: props.href,
+      to: props.to,
+    };
+
+    const filteredTags = Object.keys(tags).filter((el) => tags[el]);
+
+    const defaultOptions = {
+      tag: 'button',
+      attributes: {
+        type: props.typeButton,
       },
+    };
 
-      /**
-       * Иконка справа
-       */
-      iconRight: {
-        type: String,
-        default: null
-      },
-
-      /**
-       * Спиннер загрузки
-       */
-      loading: {
-        type: Boolean,
-        default: false
-      },
-
-      /**
-       * Кнопка на всю ширину, выравнивает по центру
-       */
-      wide: {
-        type: Boolean,
-        default: false
-      },
-
-      /**
-       * Сделать кнопку неактивной
-       */
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-
-      /**
-       * Показать границу у кнопки 
-       */
-      border: {
-        type: Boolean,
-        default: false
-      },
-
-      /**
-       * Размер [sm, md, lg]
-       */
-      size: {
-        type: String,
-        default: 'md'
-      },
-
-      /**
-       * Меняет тег на "a" и прописывает аттрибут "href"
-       */
+    const options = {
       href: {
-        type: String,
-        default: null,
+        tag: 'a',
+        attributes: {
+          href: props.href,
+        },
       },
 
-      /**
-       * Меняет тег на "router-link" и прописывает аттрибут "to"
-       */
       to: {
-        type: String,
-        default: null,
+        tag: 'router-link',
+        attributes: {
+          to: props.to,
+        },
       },
+    };
 
-      /**
-       * Тип кнопки [button, submit]
-       */
-      typeButton: {
-        type: String,
-        default: 'button'
-      },
-      
-      /**
-       * Цвет кнопки [primary, secondary, tertiary, clear]
-       */
-      variant: {
-        type: String,
-        default: 'primary'
-      },
-
-      /**
-       * Форма кнопки [square, circle]
-       */
-      shape: {
-        type: String,
-        default: ''
-      },
-
-      /**
-       * Вид кнопки ['', 'danger', 'success']
-       */
-      view: {
-        type: String,
-        default: '',
-      }
-    },
-
-    computed: {
-      buttonOptions() {
-        const tags = {
-          href: this.href,
-          to: this.to
-        }
-        
-        const filteredTags = Object.keys(tags).filter((el) => tags[el])
-        
-        const defaultOptions = {
-          tag: 'button',
-          attributes: {
-            type: this.typeButton,
-          }
-        }
-
-        const options = {
-          href: {
-            tag: 'a',
-            attributes: {
-              href: this.href,
-            }
-          },
-
-          to: {
-            tag: 'router-link',
-            attributes: {
-              to: this.to,
-            }
-          }
-        }
-
-        return options[filteredTags.join('')] || defaultOptions
-      },
-
-      states() {
-        const classes = {
-          'button_disabled': this.disabled,
-          [`button_${this.size}`]: this.size,
-          [`button_${this.variant}`]: this.variant,
-          [`button_${this.shape}`]: this.shape,
-          [`button_${this.view}`]: this.view,
-          'button_bordered': this.border,
-          'button_wide': this.wide,
-          'button_loading': this.loading,
-        }
-
-        const filteredClasses = Object.keys(classes).filter((el) => classes[el])
-
-        return {
-          classes: filteredClasses,
-          attributes: {
-            disabled: this.disabled
-          }
-        }
-      }
-    },
+    return options[filteredTags.join('')] || defaultOptions;
   }
+});
+
+const states = computed(() => {
+  const classes = {
+    button_disabled: props.disabled,
+    [`button_${props.size}`]: props.size,
+    [`button_${props.variant}`]: props.variant,
+    [`button_${props.shape}`]: props.shape,
+    [`button_${props.view}`]: props.view,
+    button_bordered: props.border,
+    button_wide: props.wide,
+    button_loading: props.loading,
+  };
+
+  const filteredClasses = Object.keys(classes).filter((el) => classes[el]);
+
+  return {
+    classes: filteredClasses,
+    attributes: {
+      disabled: props.disabled,
+    },
+  };
+});
 </script>
 
 <style lang="scss" scoped>
